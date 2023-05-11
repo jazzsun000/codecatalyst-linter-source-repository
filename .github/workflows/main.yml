@@ -23,8 +23,8 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8
 
-    - name: Run Flake8
-      run: |
-        flake8 --max-line-length=120 --ignore=E203,E266,E501,W503 your_code_directory
-
+    - name: Run py script
+      uses: datapane/build-action@v2
+      with: |
+        script: "main.py"
 
