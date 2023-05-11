@@ -26,5 +26,5 @@ jobs:
     - name: Run py script
       uses: datapane/build-action@v2
       with: |
-        script: "app.py"
+        script: "main.py"
 
