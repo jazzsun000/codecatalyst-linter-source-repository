@@ -1,30 +1,30 @@
-name: Lint and Style Check
+name: Lint
+
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
 jobs:
-  lint_and_style_check:
+  lint:
     runs-on: ubuntu-latest
-    
     steps:
-    
-    - name: Checkout code
-      uses: actions/checkout@v2
-    
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
-        
+      - uses: actions/checkout@v2
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+      - name: Install dependencies
+        run: npm install
+      - name: Lint with ESLint
+        run: npm run lint
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install flake8
+      - name: Check for formatting errors with Prettier
+        run: npx prettier --check .
 
-    - name: Run py script
-      uses: datapane/build-action@v2
-      with: |
-        script: "main.py"
+      - name: Check for formatting errors with ESLint
+        run: npx eslint --fix --no-ignore .
 
+      - name: Check for formatting errors with stylelint
+        run: npx stylelint '**/*.{css,scss}'
