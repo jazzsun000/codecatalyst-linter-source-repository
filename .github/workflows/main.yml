@@ -1,0 +1,5 @@
+name: Lint and Style Check
+on:
+  push:
+    branches:
+      - main
